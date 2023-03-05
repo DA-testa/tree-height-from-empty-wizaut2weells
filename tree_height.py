@@ -47,7 +47,7 @@ def main():
     print(compute_height(la_tree, lv_rindex))
 
 
-sys.setrecursionlimit(10**7)  # max depth of recursion
-threading.stack_size(2**27)   # new thread will get stack of such size
+#sys.setrecursionlimit(10**7)  # max depth of recursion
+#threading.stack_size(2**27)   # new thread will get stack of such size
 #threading.Thread(target=main).start()
 main()

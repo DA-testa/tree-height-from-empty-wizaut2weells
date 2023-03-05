@@ -38,12 +38,10 @@ def main():
     elif lv_input_method == 'F':
         lv_filename = input("Enter the file name: ")     # implement input form keyboard and from files
         if 'a' in lv_filename:                          # let user input file name to use, don't allow file names with letter a
-            print("Filename cannot contain the letter 'a'")
             return
-        elif 'i' in lv_filename: 
-            with open(f"./test/{lv_filename}", mode="r") as file:
-                gv_num=int(file.readline())
-                gl_parents = list(map(int, file.readline().split()))
+        with open(f"./test/{lv_filename}", mode="r") as file:
+            gv_num=int(file.readline())
+            gl_parents = list(map(int, file.readline().split()))
 
     la_tree, lv_rindex = build_tree(gv_num, gl_parents)
     print(compute_height(la_tree, lv_rindex))

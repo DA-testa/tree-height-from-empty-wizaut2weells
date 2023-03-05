@@ -33,17 +33,17 @@ def compute_height(la_tree, lv_rindex):
 def main():
     lv_input_method = input()
     if lv_input_method == 'I':
-        num = int(input())       
+        lv_num = int(input())       
         gl_parents = list(map(int, input().split()))
     elif lv_input_method == 'F':
         lv_filename = input()     # implement input form keyboard and from files
         if 'a' in lv_filename:                          # let user input file name to use, don't allow file names with letter a
             return
         with open(f"./test/{lv_filename}", mode="r") as file:
-            num = int(file.readline())
+            lv_num = int(file.readline())
             gl_parents = list(map(int, file.readline().split())) 
 
-    la_tree, lv_rindex = build_tree(num, gl_parents)
+    la_tree, lv_rindex = build_tree(lv_num, gl_parents)
     print(compute_height(la_tree, lv_rindex))
 
 

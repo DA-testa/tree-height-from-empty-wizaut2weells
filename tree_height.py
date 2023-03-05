@@ -32,6 +32,8 @@ def compute_height(la_tree, lv_rindex):
 
 def main():
     lv_input_method = input()
+    lv_num = None
+    gl_parents = None
     if lv_input_method == 'I':
         lv_num = int(input())       
         gl_parents = list(map(int, input().split()))

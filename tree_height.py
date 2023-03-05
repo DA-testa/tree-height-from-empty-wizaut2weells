@@ -3,40 +3,40 @@ import sys
 import threading
 import numpy
 
-def build_tree(lv_num, lv_parent):
+def build_tree(lv_num, ll_parent):
     la_tree = {}
     lv_rindex = 0
 
     for i in range(lv_num):
         la_tree[i] = []
 
-    for i, lv_parent in enumerate(lv_parent):
-        if lv_parent != -1:
-            la_tree[lv_parent].append(i)
+    for i, ll_parent in enumerate(ll_parent):
+        if ll_parent != -1:
+            la_tree[ll_parent].append(i)
         else:
             lv_rindex = i
 
     return la_tree, lv_rindex
 
 def compute_height(la_tree, lv_rindex):
-    queue = [(lv_rindex, 1)]
-    max_height = 0
-    while queue:
-        node, height = queue.pop(0)
-        max_height = max(max_height, height)
-        for child in la_tree[node]:
-            queue.append((child, height+1))
+    la_queue = [(lv_rindex, 1)]
+    lv_max_height = 0
+    while la_queue:
+        node, height = la_queue.pop(0)
+        lv_max_height = max(lv_max_height, height)
+        for lv_child in la_tree[node]:
+            la_queue.append((lv_child, height+1))
 
-    return max_height
+    return lv_max_height
 
 
 def main():
     lv_input_method = input()
     if lv_input_method == 'I':
-        gv_num = int(input("Innput the number of elements: "))       
-        gl_parents = list(map(int, input("Enter the parent array, separated by space: ").strip().split()))
+        gv_num = int(input())       
+        gl_parents = list(map(int, input().split()))
     elif lv_input_method == 'F':
-        lv_filename = input("Enter the file name: ")     # implement input form keyboard and from files
+        lv_filename = input()     # implement input form keyboard and from files
         if 'a' in lv_filename:                          # let user input file name to use, don't allow file names with letter a
             return
         with open(f"./test/{lv_filename}", mode="r") as file:

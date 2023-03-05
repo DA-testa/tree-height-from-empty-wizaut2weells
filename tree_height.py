@@ -4,6 +4,8 @@ import threading
 import numpy
 
 def build_tree(lv_num, ll_parent):
+    if lv_num is None:
+        raise ValueError("lv_num is not initialized")
     la_tree = {}
     lv_rindex = 0
 

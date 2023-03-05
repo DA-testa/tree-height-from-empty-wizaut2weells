@@ -37,14 +37,13 @@ def main():
         gl_parents = list(map(int, input("Enter the parent array, separated by space: ").strip().split()))
     elif lv_input_method == 'F':
         lv_filename = input("Enter the file name: ")     # implement input form keyboard and from files
-        while 'a' in lv_filename:     # let user input file name to use, don't allow file names with letter a
-            lv_filename = input("Filename cannot contain the letter 'a'")
-        try:
-            with  open(lv_filename, 'r') as file:
+        if 'a' in lv_filename:                          # let user input file name to use, don't allow file names with letter a
+            print("Filename cannot contain the letter 'a'")
+            return
+        elif 'i' in lv_filename: 
+            with  open(f"./test/{lv_filename}", mode="r") as file:
                 gv_num=int(file.readline().strip())
                 gl_parents = list(map(int, file.readline().strip().split()))
-        except FileNotFoundError:
-            print("File not found")
 
     la_tree, lv_rindex = build_tree(gv_num, gl_parents)
     print(compute_height(la_tree, lv_rindex))

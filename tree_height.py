@@ -39,7 +39,7 @@ def main():
     if lv_input_method == 'I':
         lv_num = int(input())       
         gl_parents = list(map(int, input().split()))
-    elif lv_input_method == 'F':
+    elif lv_input_method == 'F' or lv_input_method== '':
         lv_filename = input()     # implement input form keyboard and from files
         if 'a' in lv_filename:    # let user input file name to use, don't allow file names with letter a
             return

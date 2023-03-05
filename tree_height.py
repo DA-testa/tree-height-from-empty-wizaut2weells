@@ -42,13 +42,18 @@ def main():
         with open(f"./test/{lv_filename}", mode="r") as file:
             lv_num = int(file.readline())
             gl_parents = list(map(int, file.readline().split())) 
+            la_tree, lv_rindex = build_tree(lv_num, gl_parents)
+            print(compute_height(la_tree, lv_rindex))
     elif lv_input_method == 'I':
         lv_num = int(input())       
         gl_parents = list(map(int, input().split()))
+        la_tree, lv_rindex = build_tree(lv_num, gl_parents)
+        print(compute_height(la_tree, lv_rindex))
+    else: 
+        print("no right input")
+        exit
 
 
-    la_tree, lv_rindex = build_tree(lv_num, gl_parents)
-    print(compute_height(la_tree, lv_rindex))
 
 
 sys.setrecursionlimit(10**7)  # max depth of recursion

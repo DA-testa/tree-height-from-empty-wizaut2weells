@@ -41,7 +41,7 @@ def main():
         gl_parents = list(map(int, input().split()))
     elif lv_input_method == 'F':
         lv_filename = input()     # implement input form keyboard and from files
-        if 'a' in lv_filename:                          # let user input file name to use, don't allow file names with letter a
+        if 'a' in lv_filename:    # let user input file name to use, don't allow file names with letter a
             return
         with open(f"./test/{lv_filename}", mode="r") as file:
             lv_num = int(file.readline())
@@ -51,7 +51,7 @@ def main():
     print(compute_height(la_tree, lv_rindex))
 
 
-#sys.setrecursionlimit(10**7)  # max depth of recursion
-#threading.stack_size(2**27)   # new thread will get stack of such size
-#threading.Thread(target=main).start()
-main()
+sys.setrecursionlimit(10**7)  # max depth of recursion
+threading.stack_size(2**27)   # new thread will get stack of such size
+threading.Thread(target=main).start()
+#main()

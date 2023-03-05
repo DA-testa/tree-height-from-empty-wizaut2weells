@@ -1,7 +1,6 @@
 # python3
 import sys
 import threading
-import numpy
 
 def build_tree(lv_num, ll_parent):
     if lv_num is None:
@@ -36,16 +35,17 @@ def main():
     lv_input_method = input()
     lv_num = None
     gl_parents = None
-    if lv_input_method == 'I':
-        lv_num = int(input())       
-        gl_parents = list(map(int, input().split()))
-    elif lv_input_method == 'F' or lv_input_method== '':
+    if lv_input_method == 'F':
         lv_filename = input()     # implement input form keyboard and from files
         if 'a' in lv_filename:    # let user input file name to use, don't allow file names with letter a
             return
         with open(f"./test/{lv_filename}", mode="r") as file:
             lv_num = int(file.readline())
             gl_parents = list(map(int, file.readline().split())) 
+    elif lv_input_method == 'I':
+        lv_num = int(input())       
+        gl_parents = list(map(int, input().split()))
+
 
     la_tree, lv_rindex = build_tree(lv_num, gl_parents)
     print(compute_height(la_tree, lv_rindex))

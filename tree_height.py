@@ -31,7 +31,7 @@ def compute_height(la_tree, lv_rindex):
 
 
 def main():
-    lv_input_method = input("Input(I) or file(F)?")
+    lv_input_method = input()
     if lv_input_method == 'I':
         gv_num = int(input("Innput the number of elements: "))       
         gl_parents = list(map(int, input("Enter the parent array, separated by space: ").strip().split()))
@@ -41,9 +41,9 @@ def main():
             print("Filename cannot contain the letter 'a'")
             return
         elif 'i' in lv_filename: 
-            with  open(f"./test/{lv_filename}", mode="r") as file:
-                gv_num=int(file.readline().strip())
-                gl_parents = list(map(int, file.readline().strip().split()))
+            with open(f"./test/{lv_filename}", mode="r") as file:
+                gv_num=int(file.readline())
+                gl_parents = list(map(int, file.readline().split()))
 
     la_tree, lv_rindex = build_tree(gv_num, gl_parents)
     print(compute_height(la_tree, lv_rindex))

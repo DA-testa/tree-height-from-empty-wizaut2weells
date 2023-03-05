@@ -1,0 +1,27 @@
+def main():
+    # ask user to input file name
+    filename = input("Enter file name: ")
+    # check if the file name contains the letter 'a'
+    while 'a' in filename:
+        filename = input("File name cannot contain the letter 'a'. Enter a new file name: ")
+
+    try:
+        # try to open the file for reading
+        with open(filename, 'r') as file:
+            # read the first line, which contains the number of elements
+            n = int(file.readline().strip())
+            # read the second line, which contains the parent array
+            parents = list(map(int, file.readline().strip().split()))
+    except FileNotFoundError:
+        # if the file does not exist, ask the user to input the number of elements and the parent array from keyboard
+        print("File not found. Please input the number of elements and the parent array from keyboard.")
+        # read the number of elements
+        n = int(input("Enter the number of elements: "))
+        # read the parent array
+        parents = list(map(int, input("Enter the parent array, separated by space: ").strip().split()))
+
+    # call the compute_height() function to compute the maximum height of the tree
+    max_height = compute_height(n, parents)
+
+    # print the result
+    print("Maximum height of the tree:", max_height)

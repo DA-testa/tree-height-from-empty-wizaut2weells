@@ -1,33 +1,56 @@
 # python3
-
 import sys
 import threading
 import numpy
 
+def build_tree(lv_num, lv_parent):
+    la_tree = {}
+    lv_rindex = 0
 
-def compute_height(n, parents):
-    # Write this function
+    for i in range(n):
+        la_tree[i] = []
+
+    for i, lv_parent in enumerate(lv_parent):
+        if lv_parent != -1:
+            la_tree[lv_parent].append(i)
+        else:
+            lv_rindex = i
+
+    return la_tree, lv_rindex
+
+def compute_height(la_tree, lv_rindex):
+    queue = [(lv_rindex, 1)]
     max_height = 0
-    # Your code here
+
+    while queue:
+        node, height = queue.pop(0)
+        max_height = max(max_height, height)
+        for child in la_tree[node]:
+            queue.append((child, height+1))
+
     return max_height
 
 
 def main():
-    # implement input form keyboard and from files
-    
-    # let user input file name to use, don't allow file names with letter a
-    # account for github input inprecision
-    
-    # input number of elements
-    # input values in one variable, separate with space, split these values in an array
-    # call the function and output it's result
-    pass
+    lv_input_method = input("Input(I) or file(F)?")
+    if lv_input_method == 'I' or 'i':
+        gv_num = int(input("Innput the number of elements: "))       
+        gl_parents = list(map(int, input("Enter the parent array, separated by space: ").strip().split()))
+    elif lv_input_method == 'F' or 'f':
+        lv_filename = input("Enter the file name: ")     # implement input form keyboard and from files
+        while 'a' in lv_filename:     # let user input file name to use, don't allow file names with letter a
+            lv_filename = input("Filename cannot contain the letter 'a'")
+        try:
+            with  open(lv_filename, 'r') as file:
+                gv_num=int(file.readline().strip())
+                gl_parents = list(map(int, file.readline().strip().split()))
+        except FileNotFoundError:
+            print("File not found")
+    max_height = compute_height(gv_num, gl_parents)
+    print("Maximum height of the tree:", max_height)
 
-# In Python, the default limit on recursion depth is rather low,
-# so raise it here for this problem. Note that to take advantage
-# of bigger stack, we have to launch the computation in a new thread.
+
 sys.setrecursionlimit(10**7)  # max depth of recursion
 threading.stack_size(2**27)   # new thread will get stack of such size
 threading.Thread(target=main).start()
 main()
-# print(numpy.array([1,2,3]))

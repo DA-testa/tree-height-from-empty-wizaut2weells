@@ -1,33 +1,62 @@
 # python3
-
 import sys
 import threading
-import numpy
 
+def build_tree(lv_num, ll_parent):
+    if lv_num is None:
+        raise ValueError("lv_num is not initialized")
+    la_tree = {}
+    lv_rindex = 0
 
-def compute_height(n, parents):
-    # Write this function
-    max_height = 0
-    # Your code here
-    return max_height
+    for i in range(lv_num):
+        la_tree[i] = []
+
+    for i, ll_parent in enumerate(ll_parent):
+        if ll_parent != -1:
+            la_tree[ll_parent].append(i)
+        else:
+            lv_rindex = i
+
+    return la_tree, lv_rindex
+
+def compute_height(la_tree, lv_rindex):
+    la_queue = [(lv_rindex, 1)]
+    lv_max_height = 0
+    while la_queue:
+        node, height = la_queue.pop(0)
+        lv_max_height = max(lv_max_height, height)
+        for lv_child in la_tree[node]:
+            la_queue.append((lv_child, height+1))
+
+    return lv_max_height
 
 
 def main():
-    # implement input form keyboard and from files
-    
-    # let user input file name to use, don't allow file names with letter a
-    # account for github input inprecision
-    
-    # input number of elements
-    # input values in one variable, separate with space, split these values in an array
-    # call the function and output it's result
-    pass
+    lv_input_method = input()
+    #lv_num = None
+    #gl_parents = None
+    if 'F' in lv_input_method:
+        lv_filename = input()     # implement input form keyboard and from files
+        if 'a' in lv_filename:    # let user input file name to use, don't allow file names with letter a
+            exit
+        with open(f"./test/{lv_filename}", mode="r") as file:
+            lv_num = int(file.readline())
+            gl_parents = list(map(int, file.readline().split())) 
+            la_tree, lv_rindex = build_tree(lv_num, gl_parents)
+            print(compute_height(la_tree, lv_rindex))
+    elif 'I' in lv_input_method:
+        lv_num = int(input())       
+        gl_parents = list(map(int, input().split()))
+        la_tree, lv_rindex = build_tree(lv_num, gl_parents)
+        print(compute_height(la_tree, lv_rindex))
+    else: 
+        print("no right input")
+        exit
 
-# In Python, the default limit on recursion depth is rather low,
-# so raise it here for this problem. Note that to take advantage
-# of bigger stack, we have to launch the computation in a new thread.
+
+
+
 sys.setrecursionlimit(10**7)  # max depth of recursion
 threading.stack_size(2**27)   # new thread will get stack of such size
 threading.Thread(target=main).start()
-main()
-# print(numpy.array([1,2,3]))
+# main()
